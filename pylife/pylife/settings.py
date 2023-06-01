@@ -5,13 +5,15 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-vxuk6x)93x9v7!(+am_s^o7b1sfv&wf)5wj&sm_529pygklp_u'
+SECRET_KEY = 'django-insecure-vxuk6x)93x9v7!(+am_s^o7b1sfv&wf)\
+    5wj&sm_529pygklp_u'
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'django.contrib.admin',
@@ -54,10 +56,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pylife.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -65,30 +63,28 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
+AUTH_PWD_MODULE = "django.contrib.auth.password_validation."
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": f"{AUTH_PWD_MODULE}UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": f"{AUTH_PWD_MODULE}MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": f"{AUTH_PWD_MODULE}CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": f"{AUTH_PWD_MODULE}NumericPasswordValidator",
     },
 ]
 
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'blog:index'
+LOGOUT_REDIRECT_URL = 'blog:index'
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -96,14 +92,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
