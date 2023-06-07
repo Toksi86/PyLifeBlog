@@ -2,9 +2,13 @@
 {% block content %}
   Это главная страница проекта PyLife. Здравствуйте 
   {% if request.user.is_authenticated %}
-    {{  user  }}
+    {{  user  }}. 
+    <br><a href="auth/logout">Выйти </a>
   {% else %}
-    GUEST
+    GUEST. 
+    <br><a href="auth/login">Войти </a>
+    <br><a href="auth/signup">Зарегистрироваться </a>
+    <br>
   {% endif %}
 
   {% for post in posts %}
