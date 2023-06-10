@@ -1,28 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-  Это главная страница проекта PyLife. Здравствуйте 
-  {% if request.user.is_authenticated %}
-    {{  user  }}. 
-    <br><a href="auth/logout">Выйти </a>
-  {% else %}
-    GUEST. 
-    <br><a href="auth/login">Войти </a>
-    <br><a href="auth/signup">Зарегистрироваться </a>
-    <br>
-  {% endif %}
+  <p>Это главная страница проекта PyLife.
+  </p>
 
+  
   {% for post in posts %}
-  <ul>
-    <li>
-      Автор: {{ post.author }}
-    </li>
-    <li>
-      Дата публикации: {{ post.created|date:"d E Y" }}
-    </li>
-  </ul>
-  <p>{{ post.body }}</p>
-  <a href="posts/{{ post.slug }}">Читать пост</a><br>
-  <a href="">все записи группы</a>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ post.title }}</h5>
+      <p class="card-text">{{ post.created }}</p>
+      <a href="posts/{{ post.slug }}" class="btn btn-primary">Читать пост</a>
+    </div>
+  </div>
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
 

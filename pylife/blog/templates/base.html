@@ -6,16 +6,18 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>       
-    <header>
-      {% include 'blog/includes/header.html' %}
-    </header>
-    <main>
-      {% block content %}
-        Контент не подвезли :(
-      {% endblock %}
-    </main>
-    <footer>
-      {% include 'blog/includes/footer.html' %} 
-    </footer>
+    <div class="container">
+      <header>
+        {% include 'blog/includes/header.html' %}
+      </header>
+      <main>
+        {% block content %}
+          Контент не подвезли :(
+        {% endblock %}
+      </main>
+      <footer>
+        {% include 'blog/includes/footer.html' %} 
+      </footer>
+    </div>
   </body>
 </html>

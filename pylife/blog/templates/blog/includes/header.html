@@ -1,0 +1,22 @@
+<br>
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        PyLife
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+              {% if request.user.is_authenticated %}
+              <a class="nav-link active" aria-current="page" href="auth/logout">Выйти </a>
+            </li>
+              {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="auth/login">Войти </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="auth/signup">Зарегистрироваться </a>
+              {% endif %}
+            </li>
+        </ul>  
+        </a>
+    </div>
+</nav>
