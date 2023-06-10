@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-  <p>Это главная страница проекта PyLife.
-  </p>
-
-  
-  {% for post in posts %}
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{ post.title }}</h5>
-      <p class="card-text">{{ post }}</p>
-      <p class="card-text">{{ post.created }}</p>
-      <a href="posts/{{ post.slug }}" class="btn btn-primary">Читать пост</a>
-    </div>
+<p>Это главная страница проекта PyLife.</p>
+{% for post in posts %}
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">{{ post.title }}</h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{ post }}</p>
+    <a href="posts/{{ post.slug }}" class="btn btn-primary">Читать пост</a>
+  </div>
+  <div class="card-footer text-body-secondary">
+    <p class="card-text">{{ post.created }}</p>
   </div>
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
-
-{% endblock %} 
+</div>
+{% endblock %}
