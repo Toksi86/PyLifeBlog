@@ -2,14 +2,14 @@
 {% block content %}
 <h1> {{  post.title }} </h1>
 <p>{{ post.body }}</p>
-<br>Автор: {{ post.author }}
-<br>Дата публикации: {{ post.created|date:"d E Y" }}
-<br>Комментарии: {{ comment }}
+<p>Автор: {{ post.author }}</p>
+<p>Дата публикации: {{ post.created|date:"d E Y" }}</p>
+<p>Комментарии: {{ comment }}</p>
 {% for comment in comments %}
   <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{ comment.author }}</h5>
-      <p class="card-text">{{ post.body }}</p>
+      <p class="card-text">{{ comment.body }}</p>
     </div>
   </div>
   {% if not forloop.last %}<hr>{% endif %}
