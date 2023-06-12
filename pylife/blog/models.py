@@ -30,7 +30,7 @@ class Post(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return self.body[:75]
+        return f'{self.body[:200]}...'
 
 
 class Comment(models.Model):
