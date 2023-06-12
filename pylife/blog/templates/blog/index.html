@@ -11,7 +11,7 @@
     <a href="posts/{{ post.slug }}" class="btn btn-primary">Читать пост</a>
   </div>
   <div class="card-footer text-body-secondary">
-    <p class="card-text">{{ post.created }}</p>
+    <p class="card-text">{{ post.created }}. Автор: <a href="users/{{ post.author.username}}">{{ post.author }}</a></p>
   </div>
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
