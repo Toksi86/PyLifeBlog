@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
 
 from .models import Post, Comment
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 
 def index(request):
@@ -21,11 +21,13 @@ def index(request):
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     comments = Comment.objects.filter(post=post)
+    form = CommentForm()
 
     context = {
         'post': post,
         'slug': slug,
         'comments': comments,
+        'form': form,  # TODO: rewrite in a separate function
     }
     return render(request, 'blog/post_detail.html', context)
 

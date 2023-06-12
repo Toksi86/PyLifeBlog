@@ -6,13 +6,21 @@
 <p>Дата публикации: {{ post.created|date:"d E Y" }}</p>
 <p>Комментарии: {{ comment }}</p>
 {% for comment in comments %}
-  <div class="card" style="width: 18rem;">
+  <div class="card">
     <div class="card-body">
       <h5 class="card-title">{{ comment.author }}</h5>
       <p class="card-text">{{ comment.body }}</p>
     </div>
   </div>
-  {% if not forloop.last %}<hr>{% endif %}
+  {% if not forloop.last %}<br>{% endif %}
   {% endfor %}
+  </div>
+    <form method="post">
+      <br>
+      <p>Введите ваш комментарий: </p>
+      {% csrf_token %}
+      {{ form.body }}
+      <p><input type="submit" value="Отправить"></p>
+    </form>
 
 {% endblock %} 
