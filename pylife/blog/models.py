@@ -7,22 +7,33 @@ User = get_user_model()
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200, validators=[validate_not_empty])
+    title = models.CharField(
+        'Заголовок',
+        max_length=200,
+        validators=[validate_not_empty],
+        help_text='Напишите пост',)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='posts',
+        verbose_name='Автор',
     )
-    body = models.TextField(validators=[validate_not_empty])
+    body = models.TextField(
+        'Текст',
+        validators=[validate_not_empty])
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(
+        'Адрес страницы',
+        max_length=200,
+        unique=True)
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
         ('hidden', 'Hidden')
     )
     status = models.CharField(
+        'Статус',
         max_length=10,
         choices=STATUS_CHOICES,
         default='draft'
