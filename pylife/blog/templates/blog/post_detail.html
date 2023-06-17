@@ -5,6 +5,18 @@
 <p>Автор: {{ post.author }}</p>
 <p>Дата публикации: {{ post.created|date:"d E Y" }}</p>
 <p>Комментарии: {{ comment }}</p>
+{% if request.user.is_authenticated %}
+<form action='/new_comment/' method="post">
+  <br>
+  <p>Введите ваш комментарий: </p>
+  {% csrf_token %}
+  {{ form.body }}
+  <p><input type="submit" value="Отправить"></p>
+</form>
+{% else %}
+<br>
+<p>Комментарии могут оставлять только зарегистрированные пользователи</p>
+{% endif %}
 {% for comment in comments %}
   <div class="card">
     <div class="card-body">
@@ -15,12 +27,4 @@
   {% if not forloop.last %}<br>{% endif %}
   {% endfor %}
   </div>
-    <form method="post">
-      <br>
-      <p>Введите ваш комментарий: </p>
-      {% csrf_token %}
-      {{ form.body }}
-      <p><input type="submit" value="Отправить"></p>
-    </form>
-
 {% endblock %} 

@@ -27,7 +27,7 @@ def post_detail(request, slug):
         'post': post,
         'slug': slug,
         'comments': comments,
-        'form': form,  # TODO: rewrite in a separate function
+        'form': form,  # TODO: Rewrite in a separate function
     }
     return render(request, 'blog/post_detail.html', context)
 
@@ -48,7 +48,7 @@ def some_view(request):
 
 class PostView(CreateView):
     form_class = PostForm
-
     template_name = 'blog/new_post.html'
-
     success_url = '/thankyou/'
+    # TODO: Do it only for users with authorization
+    # TODO: Do action creat Comment

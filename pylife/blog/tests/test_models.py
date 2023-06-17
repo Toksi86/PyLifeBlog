@@ -31,4 +31,5 @@ class PostModelTest(TestCase):
         for field, expected_value in field_verboses.items():
             with self.subTest(field=field):
                 self.assertEqual(
-                    post._meta.get_field(field).verbose_name, expected_value)
+                    post._meta.get_field(field).verbose_name, expected_value
+                )
