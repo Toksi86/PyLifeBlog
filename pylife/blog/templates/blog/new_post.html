@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<form method="post" action="{% url 'blog:new_post' %}">
-    {{ form.as_p }}
-    <input type="submit" value="Отправить">
-</form>
-{% endblock %}

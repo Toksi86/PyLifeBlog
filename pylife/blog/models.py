@@ -10,8 +10,7 @@ class Post(models.Model):
     title = models.CharField(
         'Заголовок',
         max_length=200,
-        validators=[validate_not_empty],
-        help_text='Напишите пост',)
+        validators=[validate_not_empty],)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -38,9 +37,16 @@ class Post(models.Model):
         choices=STATUS_CHOICES,
         default='draft'
     )
+    image = models.ImageField(
+        'Картинка',
+        upload_to='blogs/',
+        blank=True
+    )
 
     class Meta:
         ordering = ('-created',)
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
 
     def __str__(self):
         return f'{self.body[:200]}...'

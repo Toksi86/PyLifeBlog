@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
+{% load user_filters %}
 {% block content %}
 <h1> {{  post.title }} </h1>
 <p>{{ post.body }}</p>
-<p>Автор: {{ post.author }}</p>
+<p>Автор:<b> {{ post.author }} </b></p>
 <p>Дата публикации: {{ post.created|date:"d E Y" }}</p>
-<p>Комментарии: {{ comment }}</p>
-{% if request.user.is_authenticated %}
-<form action='/new_comment/' method="post">
-  <br>
-  <p>Введите ваш комментарий: </p>
-  {% csrf_token %}
-  {{ form.body }}
-  <p><input type="submit" value="Отправить"></p>
-</form>
-{% else %}
 <br>
-<p>Комментарии могут оставлять только зарегистрированные пользователи</p>
+<p><b>Комментарии могут оставлять только зарегистрированные пользователи</b></p>
+{% if user.is_authenticated %}
+  <div class="card my-4">
+    <h5 class="card-header">Добавить комментарий:</h5>
+    <div class="card-body">
+      <form method="post" action="{% url 'blog:add_comment' post.slug %}">
+        {% csrf_token %}      
+        <div class="form-group mb-2">
+          {{ form.body|addclass:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    </div>
+  </div>
 {% endif %}
 {% for comment in comments %}
   <div class="card">

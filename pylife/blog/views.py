@@ -1,9 +1,9 @@
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic.edit import CreateView
 
 from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .forms import CommentForm
 
 
 def index(request):
@@ -27,28 +27,18 @@ def post_detail(request, slug):
         'post': post,
         'slug': slug,
         'comments': comments,
-        'form': form,  # TODO: Rewrite in a separate function
+        'form': form,
     }
     return render(request, 'blog/post_detail.html', context)
 
 
-def authorized_only(func):
-    """Декоратор: доступ к view только для авторизированных пользователей."""
-    def check_user(request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return func(request, *args, **kwargs)
-        return redirect('/auth/login/')
-    return check_user
-
-
-@authorized_only
-def some_view(request):
-    pass
-
-
-class PostView(CreateView):
-    form_class = PostForm
-    template_name = 'blog/new_post.html'
-    success_url = '/thankyou/'
-    # TODO: Do it only for users with authorization
-    # TODO: Do action creat Comment
+@login_required
+def add_comment(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = post
+        comment.save()
+    return redirect(f'/posts/{slug}')
