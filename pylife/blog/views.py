@@ -1,11 +1,15 @@
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.cache import cache_page
 
 from .models import Post, Comment
 from .forms import CommentForm
 
+CACHE_RETENTION_TIME_SEC = 60
 
+
+@cache_page(CACHE_RETENTION_TIME_SEC)
 def index(request):
     posts = Post.objects.all().order_by('-created')
     paginator = Paginator(posts, 5)
